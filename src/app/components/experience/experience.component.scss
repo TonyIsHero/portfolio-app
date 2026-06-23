@@ -37,6 +37,8 @@
   display: flex;
   gap: 1.5rem;
 
+  @media (max-width: 480px) { gap: 1rem; }
+
   &__connector {
     display: flex;
     flex-direction: column;
@@ -100,6 +102,8 @@
     color: var(--text-primary);
     letter-spacing: -0.02em;
     margin-bottom: 0.3rem;
+
+    @media (max-width: 480px) { font-size: 1.1rem; }
   }
 
   &__company {
@@ -136,6 +140,8 @@
     }
 
     span { flex: 1; }
+
+    @media (max-width: 480px) { font-size: 0.82rem; }
   }
 }
 

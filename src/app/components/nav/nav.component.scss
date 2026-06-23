@@ -24,7 +24,7 @@
     padding: 1.1rem 2rem;
     gap: 1rem;
 
-    @media (max-width: 768px) { padding: 1rem; }
+    @media (max-width: 768px) { padding: 0.9rem 1.1rem; }
   }
 
   &__brand {
@@ -84,6 +84,14 @@
     }
   }
 
+  // Groups the CTA + hamburger on the right
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
   &__cta {
     display: inline-flex;
     align-items: center;
@@ -97,9 +105,183 @@
     transition: background var(--transition-fast), transform var(--transition-spring);
     flex-shrink: 0;
 
+    // Hide the nav CTA on mobile — drawer has its own CTA
+    @media (max-width: 768px) { display: none; }
+
     &:hover {
       background: var(--accent-olive);
       transform: translateY(-1px);
     }
+  }
+}
+
+// ── Hamburger Button ────────────────────────────────────────
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: var(--bg-card-dark);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+
+  @media (max-width: 768px) { display: flex; }
+
+  &:hover { background: var(--accent-olive-dim); }
+
+  .hamburger__bar {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--accent-sage);
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity   0.25s ease,
+                width     0.25s ease;
+  }
+
+  // Morph to ✕ when open
+  &.is-open {
+    .hamburger__bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger__bar:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger__bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  }
+}
+
+// ── Slide-out Drawer ────────────────────────────────────────
+.nav__drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(80vw, 300px);
+  background: var(--bg-card-dark);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 2rem 2.5rem;
+  gap: 2rem;
+
+  // Off-screen by default
+  transform: translateX(100%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity   0.28s ease,
+    visibility 0s linear 0.38s;
+
+  &.is-open {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    transition:
+      transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity   0.2s ease;
+  }
+}
+
+.drawer__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.drawer__link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  text-align: left;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-spring);
+
+  // Slide in when drawer opens
+  animation: drawerLinkIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-play-state: paused;
+
+  .nav__drawer.is-open & {
+    animation-play-state: running;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--accent-sage);
+    transform: translateX(4px);
+  }
+}
+
+@keyframes drawerLinkIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.drawer__num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-olive);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  min-width: 1.5rem;
+}
+
+.drawer__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.2rem;
+  background: var(--accent-olive);
+  color: var(--text-light);
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background var(--transition-fast), transform var(--transition-spring);
+
+  &:hover {
+    background: var(--accent-olive-dim);
+    transform: translateY(-2px);
+  }
+}
+
+// ── Backdrop ────────────────────────────────────────────────
+.nav__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(17, 18, 16, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
   }
 }

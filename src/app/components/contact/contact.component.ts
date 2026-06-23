@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-contact',
@@ -9,9 +10,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent {
-  email = 'sarkarsabarno@gmail.com';
-  linkedinUrl = 'https://www.linkedin.com/in/sabarno-sarkar-bb11b01a9';
-  githubUrl = 'https://github.com/sabarno-sarkar';
+  readonly email       = environment.email;
+  readonly linkedinUrl = environment.linkedinUrl;
+  readonly githubUrl   = environment.githubUrl;
 
   copyEmail(): void {
     navigator.clipboard.writeText(this.email).then(() => {

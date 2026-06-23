@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { interval, Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 interface CodeLine {
   num: string;
@@ -19,6 +20,8 @@ export class HeroComponent implements OnInit, OnDestroy {
   private typingSub?: Subscription;
   private lineSub?: Subscription;
 
+  readonly linkedinUrl = environment.linkedinUrl;
+  readonly githubUrl   = environment.githubUrl;
   codeLines: CodeLine[] = [
     { num: '01', code: 'microservices.orchestration()',      active: false },
     { num: '02', code: 'reactive.frontend.architectures()',  active: false },
