@@ -70,6 +70,42 @@
   }
 }
 
+// ── Dark Mode — Deep Olive & Off-White ─────────────────────
+// Applied when <html data-theme="dark"> is set by the ThemeService.
+// Canvas uses rich dark-olive tones; text uses warm off-white.
+// Accent colours are intensified for contrast on the dark surface.
+[data-theme="dark"] {
+  // Canvas — deep olive-dark tones (not pure black)
+  --bg-primary:       #1A1C17;   // deepest page background
+  --bg-secondary:     #22251E;   // slightly lifted surface (cards, sections)
+  --bg-card-dark:     #2B2F24;   // card / nav bar background
+  --bg-card-mid:      #323629;   // elevated card surface
+  --bg-code:          #141610;   // code console
+
+  // Typography — warm off-white, never pure white
+  --text-primary:     #EDE9E0;   // headings / body
+  --text-secondary:   #BDB9AF;   // secondary body text
+  --text-muted:       #7A7A6C;   // hints, labels
+  --text-light:       #EDE9E0;   // text on dark buttons (same as primary in dark)
+  --text-light-muted: #9A9A8E;   // muted text on dark elements
+
+  // Accents — slightly brighter for dark surface contrast
+  --accent-olive:     #7A9A3C;
+  --accent-sage:      #A8C882;
+  --accent-olive-dim: #5C7230;
+  --accent-glow:      rgba(122, 154, 60, 0.20);
+  --accent-border:    rgba(122, 154, 60, 0.35);
+
+  // Utility
+  --border-subtle:    rgba(237, 233, 224, 0.08);
+  --border-card:      rgba(237, 233, 224, 0.06);
+  --shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.18);
+  --shadow-md:        0 4px 16px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.22);
+  --shadow-lg:        0 12px 40px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.28);
+  --shadow-olive:     0 8px 32px rgba(122, 154, 60, 0.28);
+}
+
+
 // ── Reset & Base ───────────────────────────────────────────
 *,
 *::before,
@@ -93,6 +129,7 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 // ── Scrollbar ──────────────────────────────────────────────
