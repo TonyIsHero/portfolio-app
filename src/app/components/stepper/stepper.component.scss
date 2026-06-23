@@ -11,24 +11,7 @@
 
   @media (max-width: 1100px) { display: none; }
 
-  &__track {
-    position: absolute;
-    top: 12px;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    background: var(--border-subtle);
-    border-radius: var(--radius-full);
-    overflow: hidden;
-  }
-
-  &__fill {
-    width: 100%;
-    background: var(--accent-olive);
-    border-radius: var(--radius-full);
-    transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  // Track & fill removed — connectors are drawn per-item via ::after
 
   &__items {
     list-style: none;
@@ -45,6 +28,31 @@
     cursor: pointer;
     user-select: none;
     position: relative;
+
+    // Connector line: drawn BELOW each dot, bridging the gap to the next dot.
+    // It starts after the circle bottom and ends before the next circle top,
+    // so it never passes through any number.
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      // Start 2px below the bottom edge of the dot (dot is 24px tall, centered)
+      top: calc(50% + 14px);
+      // End 2px above the top edge of the next dot
+      // gap between items is 1.6rem; bottom of this dot to top of next = gap - dot-height = 1.6rem - 24px
+      bottom: calc(-1.6rem + 10px);
+      left: 11px; // horizontally centered on the 24px dot (12px center - 1px half-width)
+      width: 2px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+      transition: background 0.4s ease;
+      z-index: 0;
+    }
+
+    // Past connector turns green to show progress
+    &.is-past:not(:last-child)::after,
+    &.is-active:not(:last-child)::after {
+      background: var(--accent-olive);
+    }
 
     &:hover .stepper__label { opacity: 1; transform: translateX(-4px); }
     &:hover .stepper__dot { border-color: var(--accent-olive); }

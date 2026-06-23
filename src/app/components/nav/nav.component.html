@@ -1,7 +1,13 @@
 <nav class="nav" [class.scrolled]="isScrolled">
   <div class="nav__inner">
     <div class="nav__brand">
-      <span class="nav__initials">SS</span>
+      <img
+        src="my-image.jpg"
+        alt="Sabarno Sarkar"
+        class="nav__avatar"
+        (click)="openPhoto()"
+        draggable="false"
+      />
       <span class="nav__name">Sabarno Sarkar</span>
     </div>
 
@@ -27,6 +33,31 @@
           <line x1="12" y1="15" x2="12" y2="3"/>
         </svg>
       </a>
+
+      <!-- Theme toggle — desktop -->
+      <button
+        class="nav__theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        id="nav-theme-toggle-btn"
+      >
+        <!-- Sun icon (shown in dark mode to switch to light) -->
+        <svg *ngIf="isDark" class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (shown in light mode to switch to dark) -->
+        <svg *ngIf="!isDark" class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
 
       <!-- Hamburger — mobile only -->
       <button
@@ -58,6 +89,29 @@
       </li>
     </ul>
 
+    <!-- Theme toggle row inside drawer -->
+    <button
+      class="drawer__theme-toggle"
+      (click)="toggleTheme()"
+      [attr.aria-label]="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+    >
+      <svg *ngIf="isDark" class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg *ngIf="!isDark" class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <span>{{ isDark ? 'Light Mode' : 'Dark Mode' }}</span>
+    </button>
+
     <a
       href="docs/Sab_CV.pdf"
       download="Sabarno_Sarkar_CV.pdf"
@@ -81,3 +135,33 @@
     aria-hidden="true"
   ></div>
 </nav>
+
+<!-- ── Photo Lightbox ──────────────────────────────────────── -->
+<div
+  class="photo-lightbox"
+  [class.is-open]="photoOpen"
+  (click)="closePhoto()"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Profile photo"
+>
+  <button class="photo-lightbox__close" (click)="closePhoto()" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18"/>
+      <line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <div class="photo-lightbox__frame" (click)="$event.stopPropagation()">
+    <!-- Actual image — pointer-events off so right-click hits the overlay -->
+    <img
+      src="my-image.jpg"
+      alt="Sabarno Sarkar"
+      class="photo-lightbox__img"
+      draggable="false"
+      (contextmenu)="onImageContextMenu($event)"
+    />
+    <!-- Transparent shield: sits on top, eats right-clicks -->
+    <div class="photo-lightbox__shield" (contextmenu)="onImageContextMenu($event)"></div>
+  </div>
+</div>

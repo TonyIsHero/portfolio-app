@@ -13,6 +13,11 @@
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 1px 0 var(--border-subtle);
     padding: 0;
+
+    // Dark mode: use dark-olive frosted glass
+    :host-context([data-theme="dark"]) & {
+      background: rgba(26, 28, 23, 0.88);
+    }
   }
 
   &__inner {
@@ -34,18 +39,21 @@
     flex-shrink: 0;
   }
 
-  &__initials {
+  &__avatar {
     width: 34px;
     height: 34px;
-    border-radius: 8px;
-    background: var(--bg-card-dark);
-    color: var(--accent-sage);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    display: grid;
-    place-items: center;
-    font-family: var(--font-mono);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 2px solid var(--accent-border);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), transform var(--transition-spring);
+
+    &:hover {
+      border-color: var(--accent-olive);
+      transform: scale(1.08);
+    }
   }
 
   &__name {
@@ -111,6 +119,31 @@
     &:hover {
       background: var(--accent-olive);
       transform: translateY(-1px);
+    }
+  }
+
+  // ── Theme Toggle Button (desktop) ───────────────────────
+  &__theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+      background var(--transition-fast),
+      color var(--transition-fast),
+      transform var(--transition-spring);
+
+    &:hover {
+      background: var(--accent-olive);
+      color: var(--text-light);
+      transform: rotate(20deg) scale(1.08);
     }
   }
 }
@@ -266,6 +299,47 @@
   }
 }
 
+// ── Theme toggle inside the mobile drawer ───────────────────
+.drawer__theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: var(--bg-card-mid);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-light);
+  font-family: var(--font-sans);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+
+  &:hover {
+    background: var(--accent-olive);
+    color: #fff;
+  }
+}
+
+// ── Shared icon styles ──────────────────────────────────────
+.theme-icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+
+  &--sun  { animation: spinIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+  &--moon { animation: spinIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+}
+
+@keyframes spinIn {
+  from { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+  to   { opacity: 1; transform: rotate(0deg)   scale(1);   }
+}
+
 // ── Backdrop ────────────────────────────────────────────────
 .nav__backdrop {
   position: fixed;
@@ -283,5 +357,126 @@
     opacity: 1;
     visibility: visible;
     transition: opacity 0.3s ease;
+  }
+}
+
+// ── Photo Lightbox ───────────────────────────────────────
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+
+  // Frosted-glass backdrop
+  background: rgba(10, 12, 8, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  // Hidden until opened
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.32s ease, visibility 0s linear 0.32s;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.32s ease;
+
+    .photo-lightbox__frame {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  // Hidden from print / print-to-PDF screenshots
+  @media print { display: none !important; }
+
+  // ── Close button ──────────────────────────────────
+  &__close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(237, 233, 224, 0.12);
+    color: #EDE9E0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background var(--transition-fast), transform var(--transition-spring);
+    z-index: 1;
+
+    svg { width: 18px; height: 18px; }
+
+    &:hover {
+      background: rgba(237, 233, 224, 0.22);
+      transform: rotate(90deg) scale(1.1);
+    }
+  }
+
+  // ── Image frame ───────────────────────────────────
+  &__frame {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow:
+      0 32px 80px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.06);
+
+    // Spring entry animation — starts scaled-down and slightly below
+    transform: scale(0.78) translateY(24px);
+    opacity: 0;
+    transition:
+      transform 0.48s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity   0.32s ease;
+
+    // Max size — responsive
+    max-width: min(480px, calc(100vw - 3rem));
+    max-height: calc(100dvh - 3rem);
+  }
+
+  // ── The image itself ──────────────────────────────
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    // Disable pointer events so right-click lands on the shield overlay
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    draggable: false;
+  }
+
+  // ── Transparent shield (anti-screenshot overlay) ────────
+  // Sits on top of the image and intercepts all pointer events.
+  // Right-click on the shield shows the browser’s generic menu, not
+  // “Save image as” because the target is a div, not an img element.
+  &__shield {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    cursor: zoom-out;
+    // Very subtle noise layer — invisible normally, breaks screen-grab tools
+    // that try to extract a clean copy by adding imperceptible pixel noise.
+    // Not perfect but raises the bar meaningfully.
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.015) 2px,
+        rgba(255,255,255,0.015) 4px
+      );
   }
 }
