@@ -1,1 +1,178 @@
-/* You can add global styles to this file, and also import other style files */
+/* =========================================================
+   GLOBAL DESIGN SYSTEM — Sabarno Sarkar Portfolio
+   ========================================================= */
+
+// ── Custom Properties ──────────────────────────────────────
+:root {
+  // Canvas
+  --bg-primary:       #F4F0EA;
+  --bg-secondary:     #EDE8E0;
+  --bg-card-dark:     #1C2018;
+  --bg-card-mid:      #242820;
+  --bg-code:          #1A1D16;
+
+  // Typography
+  --text-primary:     #111210;
+  --text-secondary:   #3D3D38;
+  --text-muted:       #7A7A72;
+  --text-light:       #F4F0EA;
+  --text-light-muted: #A8A89E;
+
+  // Accent
+  --accent-olive:     #5C6B2E;
+  --accent-sage:      #8FA870;
+  --accent-olive-dim: #4A5525;
+  --accent-glow:      rgba(92, 107, 46, 0.15);
+  --accent-border:    rgba(92, 107, 46, 0.3);
+
+  // Utility
+  --border-subtle:    rgba(17, 18, 16, 0.08);
+  --border-card:      rgba(255, 255, 255, 0.06);
+  --shadow-sm:        0 1px 3px rgba(17, 18, 16, 0.06), 0 1px 2px rgba(17, 18, 16, 0.04);
+  --shadow-md:        0 4px 16px rgba(17, 18, 16, 0.10), 0 2px 6px rgba(17, 18, 16, 0.06);
+  --shadow-lg:        0 12px 40px rgba(17, 18, 16, 0.14), 0 4px 12px rgba(17, 18, 16, 0.08);
+  --shadow-olive:     0 8px 32px rgba(92, 107, 46, 0.20);
+
+  // Spacing
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+  --space-4xl: 6rem;
+
+  // Radius
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  // Typography
+  --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  // Transitions
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+// ── Reset & Base ───────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
+}
+
+// ── Scrollbar ──────────────────────────────────────────────
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb {
+  background: var(--accent-olive);
+  border-radius: var(--radius-full);
+}
+
+// ── Typography Scale ───────────────────────────────────────
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+p { color: var(--text-secondary); line-height: 1.7; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+// ── Utility Classes ────────────────────────────────────────
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+
+  @media (max-width: 768px) { padding: 0 var(--space-md); }
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-olive);
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 4px 10px;
+  background: rgba(92, 107, 46, 0.12);
+  color: var(--accent-sage);
+  border: 1px solid rgba(92, 107, 46, 0.25);
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  transition: background var(--transition-fast), color var(--transition-fast);
+
+  &:hover {
+    background: rgba(92, 107, 46, 0.22);
+    color: #B8D490;
+  }
+}
+
+// ── Scroll Reveal Animations ───────────────────────────────
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+// ── Focus Styles ───────────────────────────────────────────
+:focus-visible {
+  outline: 2px solid var(--accent-olive);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}

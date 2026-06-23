@@ -1,0 +1,243 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 80px;
+  padding-bottom: var(--space-4xl);
+  overflow: hidden;
+  position: relative;
+
+  // Subtle background texture
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -15%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(92, 107, 46, 0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: var(--space-4xl);
+    align-items: center;
+
+    @media (max-width: 1024px) { grid-template-columns: 1fr; gap: var(--space-2xl); }
+  }
+
+  &__eyebrow {
+    margin-bottom: var(--space-lg);
+  }
+
+  &__headline {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xl);
+    max-width: 640px;
+  }
+
+  &__accent {
+    color: var(--accent-olive);
+    display: inline;
+  }
+
+  &__summary {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin-bottom: var(--space-2xl);
+
+    strong { color: var(--text-primary); font-weight: 700; }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  &__console-wrap {
+    @media (max-width: 1024px) { order: -1; }
+  }
+
+  &__scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) { display: none; }
+  }
+}
+
+// ── Buttons ────────────────────────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-spring),
+    box-shadow var(--transition-fast);
+
+  &--primary {
+    background: var(--bg-card-dark);
+    color: var(--text-light);
+    border: 1.5px solid transparent;
+
+    &:hover {
+      background: var(--accent-olive);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-olive);
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1.5px solid var(--border-subtle);
+
+    &:hover {
+      background: var(--bg-card-dark);
+      color: var(--text-light);
+      border-color: transparent;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// ── Scroll Arrow Animation ─────────────────────────────────
+.scroll-arrow {
+  animation: bounceDown 1.8s ease-in-out infinite;
+
+  svg { opacity: 0.55; }
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+// ── Code Console ───────────────────────────────────────────
+.hero__console {
+  background: var(--bg-code);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.console {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  &__dots {
+    display: flex;
+    gap: 5px;
+  }
+
+  &__title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-light-muted);
+  }
+
+  &__body {
+    padding: 1.5rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  &__line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-normal);
+
+    &.is-active {
+      background: rgba(143, 168, 112, 0.1);
+
+      .console__code { color: var(--accent-sage); }
+    }
+  }
+
+  &__num {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+    min-width: 1.2rem;
+  }
+
+  &__code {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55);
+    transition: color var(--transition-normal);
+    flex: 1;
+  }
+
+  &__cursor {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent-sage);
+    opacity: 0;
+    transition: opacity 0.08s;
+
+    &.visible { opacity: 1; }
+  }
+
+  &__footer {
+    padding: 0.75rem 1.2rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+}
+
+// ── Console Traffic Lights ─────────────────────────────────
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+
+  &--red    { background: #FF5F57; }
+  &--yellow { background: #FFBD2E; }
+  &--green  { background: #28CA41; }
+}

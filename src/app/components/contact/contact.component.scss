@@ -1,0 +1,147 @@
+.contact {
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  background: var(--bg-card-dark);
+  position: relative;
+  overflow: hidden;
+
+  // Subtle ambient glow
+  &::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(92, 107, 46, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  &__headline {
+    max-width: 600px;
+  }
+
+  &__title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--text-light);
+    margin: var(--space-sm) 0 var(--space-lg);
+  }
+
+  &__sub {
+    font-size: 0.95rem;
+    color: var(--text-light-muted);
+    line-height: 1.75;
+    max-width: 500px;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-width: 560px;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  &__copyright {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  &__badges {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+}
+
+// ── Contact Link Cards ─────────────────────────────────────
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: 1.1rem 1.4rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-spring),
+    box-shadow var(--transition-normal);
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(92, 107, 46, 0.14);
+    border-color: var(--accent-border);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-olive);
+
+    .contact-link__arrow { transform: translate(3px, -3px); opacity: 1; }
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  &--email &__icon {
+    background: rgba(143, 168, 112, 0.15);
+    color: var(--accent-sage);
+  }
+
+  &--linkedin &__icon {
+    background: rgba(10, 102, 194, 0.15);
+    color: #5B9FD4;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__type {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-light-muted);
+  }
+
+  &__value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-light);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__arrow {
+    color: var(--text-light-muted);
+    opacity: 0.4;
+    flex-shrink: 0;
+    transition: transform var(--transition-spring), opacity var(--transition-fast);
+  }
+}

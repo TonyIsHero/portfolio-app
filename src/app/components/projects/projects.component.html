@@ -1,0 +1,152 @@
+<section class="projects">
+  <div class="container">
+
+    <div class="projects__header reveal">
+      <span class="section-label">Projects: A Curated Selection</span>
+      <h2 class="projects__title">Selected Works in Enterprise Engineering</h2>
+    </div>
+
+    <!-- Project 1: Analytics -->
+    <article class="project-card project-card--analytics reveal reveal-delay-1" aria-label="Data-Driven Enterprise Analytics Platform">
+      <div class="project-card__left">
+        <div class="project-card__meta">
+          <span class="project-card__label">{{ projects[0].label }}</span>
+          <span class="project-badge">FEATURED</span>
+        </div>
+
+        <div class="project-card__tags">
+          <span *ngFor="let t of projects[0].tags" class="tag-pill">{{ t }}</span>
+        </div>
+
+        <div class="project-card__metrics" *ngIf="projects[0].metrics">
+          <div *ngFor="let m of projects[0].metrics" class="metric">
+            <span class="metric__value">{{ m.value }}</span>
+            <span class="metric__label">{{ m.label }}</span>
+          </div>
+        </div>
+
+        <p class="project-card__desc">{{ projects[0].description }}</p>
+
+        <div class="project-card__tech">
+          <span *ngFor="let t of projects[0].techStack" class="tech-item">
+            <svg width="10" height="10" viewBox="0 0 8 8" fill="currentColor">
+              <circle cx="4" cy="4" r="3"/>
+            </svg>
+            {{ t }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Animated Chart Panel -->
+      <div class="project-card__chart">
+        <div class="chart-header">
+          <span class="chart-label">Live Analytics Stream</span>
+          <div class="chart-status">
+            <span class="chart-dot"></span>
+            <span>Live</span>
+          </div>
+        </div>
+
+        <svg
+          class="chart-svg"
+          [attr.viewBox]="'0 0 ' + chartW + ' ' + chartH"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8FA870" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#8FA870" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Grid lines -->
+          <line x1="0" [attr.y1]="chartH * 0.25" [attr.x2]="chartW" [attr.y2]="chartH * 0.25" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="0" [attr.y1]="chartH * 0.5"  [attr.x2]="chartW" [attr.y2]="chartH * 0.5"  stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="0" [attr.y1]="chartH * 0.75" [attr.x2]="chartW" [attr.y2]="chartH * 0.75" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+          <!-- Area fill -->
+          <path [attr.d]="chartAreaPath" fill="url(#chartGrad)"/>
+
+          <!-- Line -->
+          <path
+            [attr.d]="chartPath"
+            fill="none"
+            stroke="#8FA870"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <!-- Data point on last node -->
+          <circle
+            *ngIf="chartPoints.length"
+            [attr.cx]="chartPoints[chartPoints.length - 1].x"
+            [attr.cy]="chartPoints[chartPoints.length - 1].y"
+            r="4"
+            fill="#8FA870"
+            stroke="#1C2018"
+            stroke-width="2"
+          />
+        </svg>
+
+        <div class="chart-axis">
+          <span>Users</span>
+          <span>Time →</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 2: FinTech -->
+    <article class="project-card project-card--fintech reveal reveal-delay-2" aria-label="Secure FinTech Trading Application">
+      <div class="project-card__left">
+        <div class="project-card__meta">
+          <span class="project-card__label">{{ projects[1].label }}</span>
+        </div>
+
+        <div class="project-card__tags">
+          <span *ngFor="let t of projects[1].tags" class="tag-pill">{{ t }}</span>
+        </div>
+
+        <p class="project-card__desc">{{ projects[1].description }}</p>
+
+        <div class="project-card__tech">
+          <span *ngFor="let t of projects[1].techStack" class="tech-item">
+            <svg width="10" height="10" viewBox="0 0 8 8" fill="currentColor">
+              <circle cx="4" cy="4" r="3"/>
+            </svg>
+            {{ t }}
+          </span>
+        </div>
+      </div>
+
+      <div class="project-card__fintech-visual">
+        <div class="fintech-api-grid">
+          <div class="api-count">
+            <span class="api-count__num">15+</span>
+            <span class="api-count__label">RESTful APIs</span>
+          </div>
+          <div class="api-features">
+            <div class="api-feature">
+              <span class="api-feature__icon">🔐</span>
+              <span>JWT Security</span>
+            </div>
+            <div class="api-feature">
+              <span class="api-feature__icon">📊</span>
+              <span>Trade Sessions</span>
+            </div>
+            <div class="api-feature">
+              <span class="api-feature__icon">🗄️</span>
+              <span>Flyway Versioning</span>
+            </div>
+            <div class="api-feature">
+              <span class="api-feature__icon">🧪</span>
+              <span>JUnit Coverage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>

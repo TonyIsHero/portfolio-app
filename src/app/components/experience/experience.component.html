@@ -1,0 +1,71 @@
+<section class="experience">
+  <div class="container">
+    <div class="experience__header reveal">
+      <span class="section-label">Work History</span>
+      <h2 class="experience__title">Where I've Built Impact</h2>
+    </div>
+
+    <div class="experience__layout">
+
+      <!-- Timeline -->
+      <div class="experience__timeline reveal reveal-delay-1">
+        <div
+          *ngFor="let item of timeline; let i = index"
+          class="timeline-item"
+        >
+          <div class="timeline-item__connector">
+            <div class="timeline-item__dot"></div>
+            <div class="timeline-item__line"></div>
+          </div>
+
+          <div class="timeline-item__content">
+            <div class="timeline-item__period">{{ item.period }}</div>
+
+            <div class="timeline-item__header">
+              <h3 class="timeline-item__role">{{ item.role }}</h3>
+              <div class="timeline-item__company">
+                <strong>{{ item.company }}</strong>
+                <span class="timeline-item__location">· {{ item.location }}</span>
+              </div>
+            </div>
+
+            <ul class="timeline-item__highlights" role="list">
+              <li *ngFor="let h of item.highlights" class="timeline-item__highlight">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>{{ h }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Stack Used -->
+      <div class="experience__stack reveal reveal-delay-2">
+        <div class="stack-card">
+          <h4 class="stack-card__title">Technologies Used</h4>
+          <div class="stack-card__pills">
+            <span *ngFor="let t of techUsed" class="tag-pill">{{ t }}</span>
+          </div>
+
+          <div class="stack-card__stat">
+            <div class="stat">
+              <span class="stat__num">3+</span>
+              <span class="stat__label">Years at EY</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">35%</span>
+              <span class="stat__label">Throughput Gain</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num">85%+</span>
+              <span class="stat__label">Test Coverage</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

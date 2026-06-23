@@ -1,0 +1,26 @@
+<aside class="stepper" role="navigation" aria-label="Page sections">
+  <div class="stepper__track">
+    <div
+      class="stepper__fill"
+      [style.height.%]="((activeIndex - 1) / (sections.length - 1)) * 100"
+    ></div>
+  </div>
+
+  <ul class="stepper__items" role="list">
+    <li
+      *ngFor="let s of sections"
+      class="stepper__item"
+      [class.is-active]="isActive(s)"
+      [class.is-past]="isPast(s)"
+      (click)="scrollTo(s.id)"
+      role="button"
+      tabindex="0"
+      [attr.aria-label]="'Go to ' + s.label"
+    >
+      <div class="stepper__dot">
+        <span class="stepper__num">{{ s.index }}</span>
+      </div>
+      <span class="stepper__label">{{ s.label }}</span>
+    </li>
+  </ul>
+</aside>

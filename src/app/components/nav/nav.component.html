@@ -1,0 +1,28 @@
+<nav class="nav" [class.scrolled]="isScrolled">
+  <div class="nav__inner">
+    <div class="nav__brand">
+      <span class="nav__initials">SS</span>
+      <span class="nav__name">Sabarno Sarkar</span>
+    </div>
+
+    <ul class="nav__links" role="list">
+      <li *ngFor="let s of sections">
+        <button class="nav__link" (click)="scrollTo(s.id)">{{ s.label }}</button>
+      </li>
+    </ul>
+
+    <a
+      href="docs/Sab_CV.pdf"
+      download="Sabarno_Sarkar_CV.pdf"
+      class="nav__cta"
+      aria-label="Download CV"
+    >
+      <span>Download CV</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </a>
+  </div>
+</nav>

@@ -1,0 +1,199 @@
+.experience {
+  padding: var(--space-4xl) 0;
+  background: var(--bg-secondary);
+
+  &__header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  &__title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    margin-top: var(--space-sm);
+  }
+
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-2xl);
+    align-items: flex-start;
+
+    @media (max-width: 960px) { grid-template-columns: 1fr; }
+  }
+
+  &__timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  &__stack {
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+// ── Timeline Item ──────────────────────────────────────────
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+
+  &__connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  &__dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-olive);
+    border: 3px solid var(--bg-secondary);
+    box-shadow: 0 0 0 3px var(--accent-olive);
+    flex-shrink: 0;
+  }
+
+  &__line {
+    flex: 1;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-olive) 0%, transparent 100%);
+    margin-top: 6px;
+    min-height: 40px;
+  }
+
+  &__content {
+    padding-bottom: var(--space-2xl);
+    flex: 1;
+  }
+
+  &__period {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--accent-olive);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-sage);
+      animation: blink 2s ease-in-out infinite;
+    }
+  }
+
+  &__header {
+    margin-bottom: var(--space-lg);
+  }
+
+  &__role {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+
+  &__company {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+
+    strong { color: var(--text-primary); font-weight: 700; }
+  }
+
+  &__location {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  &__highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__highlight {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+
+    svg {
+      color: var(--accent-sage);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    span { flex: 1; }
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+// ── Stack Card ─────────────────────────────────────────────
+.stack-card {
+  background: var(--bg-card-dark);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  border: 1px solid var(--border-card);
+
+  &__title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-light-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: var(--space-xl);
+  }
+
+  &__stat {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-top: var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+
+  &__num {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent-sage);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 0.6rem;
+    color: var(--text-light-muted);
+    text-align: center;
+    white-space: nowrap;
+  }
+}
