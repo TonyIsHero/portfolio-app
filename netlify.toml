@@ -1,0 +1,12 @@
+[build]
+  command       = "node scripts/generate-env.js && ng build"
+  publish       = "dist/portfolio-app/browser"
+
+[build.environment]
+  NODE_VERSION  = "20"
+
+# SPA routing — redirect all paths to index.html so Angular router works
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200

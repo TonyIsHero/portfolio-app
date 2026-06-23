@@ -40,3 +40,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Private environment config (contains personal links & email)
+# Copy environment.example.ts → environment.ts and fill in real values
+src/environments/environment.ts

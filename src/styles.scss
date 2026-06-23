@@ -59,6 +59,15 @@
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow:   400ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // ── Mobile spacing overrides (≤480px) ─────────────────
+  @media (max-width: 480px) {
+    --space-lg:  1rem;
+    --space-xl:  1.25rem;
+    --space-2xl: 1.75rem;
+    --space-3xl: 2.5rem;
+    --space-4xl: 3rem;
+  }
 }
 
 // ── Reset & Base ───────────────────────────────────────────

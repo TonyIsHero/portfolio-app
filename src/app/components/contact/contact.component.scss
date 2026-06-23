@@ -31,6 +31,9 @@
     font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     color: var(--text-light);
     margin: var(--space-sm) 0 var(--space-lg);
+    word-break: break-word;
+
+    @media (max-width: 480px) { font-size: clamp(1.5rem, 8vw, 1.9rem); }
   }
 
   &__sub {

@@ -5,24 +5,79 @@
       <span class="nav__name">Sabarno Sarkar</span>
     </div>
 
+    <!-- Desktop links -->
     <ul class="nav__links" role="list">
       <li *ngFor="let s of sections">
         <button class="nav__link" (click)="scrollTo(s.id)">{{ s.label }}</button>
       </li>
     </ul>
 
+    <!-- Right-side actions -->
+    <div class="nav__right">
+      <a
+        href="docs/Sab_CV.pdf"
+        download="Sabarno_Sarkar_CV.pdf"
+        class="nav__cta"
+        aria-label="Download CV"
+      >
+        <span>Download CV</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+      </a>
+
+      <!-- Hamburger — mobile only -->
+      <button
+        class="nav__hamburger"
+        [class.is-open]="mobileOpen"
+        (click)="toggleMobile()"
+        aria-label="Toggle navigation menu"
+        id="nav-hamburger-btn"
+      >
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+        <span class="hamburger__bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile slide-out drawer -->
+  <div class="nav__drawer" [class.is-open]="mobileOpen" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <ul class="drawer__links" role="list">
+      <li *ngFor="let s of sections; let i = index">
+        <button
+          class="drawer__link"
+          [style.animation-delay]="(i * 0.06) + 's'"
+          (click)="scrollTo(s.id)"
+        >
+          <span class="drawer__num">0{{ i + 1 }}</span>
+          {{ s.label }}
+        </button>
+      </li>
+    </ul>
+
     <a
       href="docs/Sab_CV.pdf"
       download="Sabarno_Sarkar_CV.pdf"
-      class="nav__cta"
-      aria-label="Download CV"
+      class="drawer__cta"
+      (click)="mobileOpen = false"
     >
-      <span>Download CV</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
+      Download CV
     </a>
   </div>
+
+  <!-- Backdrop -->
+  <div
+    class="nav__backdrop"
+    [class.is-open]="mobileOpen"
+    (click)="mobileOpen = false"
+    aria-hidden="true"
+  ></div>
 </nav>

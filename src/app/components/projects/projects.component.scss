@@ -148,6 +148,8 @@
     color: var(--accent-sage);
     line-height: 1;
     letter-spacing: -0.02em;
+
+    @media (max-width: 480px) { font-size: 1.1rem; }
   }
 
   &__label {
@@ -246,6 +248,8 @@
     color: var(--accent-sage);
     letter-spacing: -0.03em;
     line-height: 1;
+
+    @media (max-width: 480px) { font-size: 1.6rem; }
   }
 
   &__label {
